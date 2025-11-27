@@ -1,0 +1,253 @@
+/* Estilo general del cuerpo */
+* {
+  box-sizing: border-box;
+  margin: 0%;
+  padding: 0%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: white; /* Fondo claro por defecto */
+  color: black; /* Texto oscuro por defecto */
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+/* Modo oscuro */
+body.dark-mode {
+  background-color: black;
+  color: white;
+}
+
+/******************JOUR NUIT MODE*************************/
+/* Botón de cambio de tema */
+#theme-switch {
+  position: fixed; /* Fijo en la pantalla */
+  top: 10px;
+  right: 10px;
+  background-color: darkslategrey; /* Fondo oscuro del botón */
+  border: none;
+  border-radius: 50%; /* Forma circular */
+  padding: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px #00000033; /* Sombra para destacar */
+  transition: background-color 0.3s; /* Transición suave */
+  z-index: 99;
+}
+
+#theme-switch:hover {
+  background-color: gray; /* Cambia de color al pasar el ratón */
+}
+
+#theme-switch svg {
+  display: none; /* Ocultar los íconos inicialmente */
+}
+
+#theme-switch svg:first-child {
+  display: block; /* Mostrar solo el primer ícono (luna) por defecto */
+}
+
+body.dark-mode #theme-switch svg:first-child {
+  display: none; /* Ocultar el ícono de luna en modo oscuro */
+}
+
+body.dark-mode #theme-switch svg:last-child {
+  display: block; /* Mostrar el ícono de sol en modo oscuro */
+}
+
+/*********************BUTTON FILTRE*************************/
+
+#filter {
+  display: flex;
+  align-items: center;
+  padding: 2%;
+  width: 300px; /* Fixed width */
+  gap: 3%;
+}
+
+#list-filtre {
+  cursor: pointer;
+  background-color: transparent;
+  color: black;
+  padding: 1%;
+  border: solid 1px #00000033;
+}
+
+#list-filtre option {
+  color: black;
+}
+
+/* Modo oscuro para el botón */
+body.dark-mode #list-filtre {
+  color: white;
+  border: solid 1px white;
+}
+
+/*********************MAIN SECTION*************************/
+main {
+  display: flex;
+  justify-content: space-between;
+}
+
+main h2 {
+  padding: 2%;
+  font-size: 1.8rem;
+}
+
+main h3 {
+  padding: 2%;
+  font-size: 1.3rem;
+}
+
+/* Contenedor de los libros */
+#book-template {
+  display: flex; /* Acomoda los hijos en fila */
+  flex-wrap: wrap; /* Permite que los divs pasen a la siguiente fila si no caben */
+  gap: 10px;
+  width: 100%;
+  margin: 2%;
+}
+
+/* Cada libro */
+.book {
+  position: relative;
+  width: 350px;
+  height: 500px;
+  cursor: pointer;
+  border-radius: 20px; /* Bordes redondeados */
+  border: 1px solid gray; /* Borde más oscuro */
+  padding: 1%; /* Espaciado interno */
+  text-align: center; /* Centrar contenido */
+  transform-style: preserve-3d; /* Permite el efecto 3D */
+  transition: transform 1s; /* Efecto de giro */
+}
+
+/* Modo oscuro para los libros */
+body.dark-mode .book {
+  background-color: #4a4a4a; /* Fondo oscuro */
+  border-color: gray; /* Borde más oscuro */
+}
+
+/* Al pasar el mouse, gira la tarjeta */
+.book:hover {
+  transform: rotateY(180deg);
+}
+
+.book.selected {
+  opacity: 0.5; /* Opacidad al seleccionar un libro */
+}
+
+/* Parte delantera y trasera del libro */
+.book-front,
+.book-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Oculta la cara trasera cuando no es visible */
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.book-front {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-front .cover {
+  width: 100%;
+  height: 85%;
+  object-fit: contain; /* Ajusta la imagen sin deformarla */
+  padding: 3% 0 0 0;
+}
+
+.book-back {
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  transform: rotateY(180deg);
+}
+
+.book-back p {
+  margin: 10%;
+}
+
+/************ ESTILO DE LA LISTA DE COMPRAS ***************/
+#shopping-list {
+  display: none;
+}
+
+#shopping-list.show {
+  display: flex;
+  flex-wrap: wrap;
+  align-self: start;
+  padding: 0 5% 0 2%;
+  border: 1px solid gray;
+  border-radius: 20px;
+  animation: show 3s;
+  max-width: 30%;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#list {
+  list-style: none; /* Quita los puntos de la lista */
+  position: relative;
+}
+
+#list .cover-achat {
+  width: 100px;
+  height: 150px;
+  border-radius: 5%;
+}
+
+#list .delete-book {
+  cursor: pointer;
+  position: absolute;
+  right: -5%;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 15%;
+  padding: 2%;
+  color: green;
+}
+
+/* Para asegurarse de que todas las imágenes sean responsivas */
+@media (max-width: 768px) {
+  .book {
+    width: 250px;
+    height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  main h2 {
+    font-size: 1.3rem;
+  }
+
+  #filter {
+    width: 150px;
+    font-size: 0.8rem;
+  }
+  .book {
+    width: 100px;
+    height: 200px;
+  }
+
+  #shopping-list.show {
+    align-items: center;
+  }
+
+  #list .cover-achat {
+    width: 75px;
+  }
+}
